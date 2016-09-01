@@ -1,7 +1,9 @@
 require "erubis"
+require "rulers/file_model"
 
 module Rulers
   class Controller
+    include Rulers::Model
     def initialize(env)
       @env = env
     end
@@ -22,6 +24,6 @@ module Rulers
       klass = klass.to_s.gsub(/Controller$/, "")
       Rulers.to_underscore(klass)
     end
-    
+
   end
 end

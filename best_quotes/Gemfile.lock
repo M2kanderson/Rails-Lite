@@ -1,15 +1,33 @@
+PATH
+  remote: ../rulers
+  specs:
+    rulers (0.2.0)
+      erubis
+      rack
+
 GEM
   remote: http://rubygems.org/
   specs:
+    erubis (2.7.0)
+    ffi (1.9.14)
+    listen (3.1.5)
+      rb-fsevent (~> 0.9, >= 0.9.4)
+      rb-inotify (~> 0.9, >= 0.9.7)
+      ruby_dep (~> 1.2)
     rack (2.0.1)
-    rulers (0.2.0)
-      rack
+    rb-fsevent (0.9.7)
+    rb-inotify (0.9.7)
+      ffi (>= 0.5.0)
+    rerun (0.11.0)
+      listen (~> 3.0)
+    ruby_dep (1.4.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  rulers
+  rerun
+  rulers!
 
 BUNDLED WITH
    1.12.5

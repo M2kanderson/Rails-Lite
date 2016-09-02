@@ -15,7 +15,7 @@ class QuotesController < Rulers::Controller
   end
 
   def index
-    quotes = FileModel.all
+    quotes = FileModel.find_all_by_submitter("Jesus")
     render :index, :quotes => quotes
   end
 
@@ -27,5 +27,16 @@ class QuotesController < Rulers::Controller
     }
     m = FileModel.create attrs
     render :quote, :obj => m
+  end
+
+  def update_quote
+    attrs = {
+      "submitter" => "Jesus",
+      "attribution" => "God"
+    }
+    quote_1 = FileModel.find(1)
+
+    obj = FileModel.update(quote_1, attrs)
+    render :quote, :obj => quote_1
   end
 end

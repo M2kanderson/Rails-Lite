@@ -39,4 +39,10 @@ class QuotesController < Rulers::Controller
     obj = FileModel.update(quote_1, attrs)
     render :quote, :obj => quote_1
   end
+
+  def show
+    @quote = FileModel.find(params["id"])
+    @ua = request.user_agent
+    # render_response :quote, :obj => quote, :ua => ua
+  end
 end

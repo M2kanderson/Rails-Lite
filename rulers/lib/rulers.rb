@@ -16,14 +16,24 @@ module Rulers
       end
       if env['PATH_INFO'] == '/'
         controller = Object.const_get('QuotesController').new(env)
-        text = controller.send('a_quote')
+        act = 'a_quote'
+        text = controller.send(act)
       else
         klass, act = get_controller_and_action(env)
         controller = klass.new(env)
         text = controller.send(act)
       end
-      [200, {'Content-Type' => 'text/html'},
-        [text]]
+      if controller.get_response
+        status, headers, response = controller.get_response.to_a
+        [status, headers, [response.body].flatten]
+      else
+        status, headers, response = controller.render(act).to_a
+        [status, headers, [response.body].flatten]
+
+        # [200, {'Content-Type' => 'text/html'},
+        #   [text]]
+      end
+
     end
   end
 

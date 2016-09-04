@@ -14,25 +14,25 @@ module Rulers
             return [404,
               {'Content-Type' => 'text/html'}, []]
       end
-      if env['PATH_INFO'] == '/'
-        controller = Object.const_get('QuotesController').new(env)
-        act = 'a_quote'
-        text = controller.send(act)
-      else
-        klass, act = get_controller_and_action(env)
-        controller = klass.new(env)
-        text = controller.send(act)
-      end
-      if controller.get_response
-        status, headers, response = controller.get_response.to_a
-        [status, headers, [response.body].flatten]
-      else
-        status, headers, response = controller.render(act).to_a
-        [status, headers, [response.body].flatten]
+      self.get_rack_app(env).call(env)
 
-        # [200, {'Content-Type' => 'text/html'},
-        #   [text]]
-      end
+
+      # if env['PATH_INFO'] == '/'
+      #   controller = Object.const_get('QuotesController').new(env)
+      #   act = 'a_quote'
+      #   text = controller.send(act)
+      # else
+      #   klass, act = get_controller_and_action(env)
+      #   controller = klass.new(env)
+      #   text = controller.send(act)
+      # end
+      # if controller.get_response
+      #   status, headers, response = controller.get_response.to_a
+      #   [status, headers, [response.body].flatten]
+      # else
+      #   status, headers, response = controller.render(act).to_a
+      #   [status, headers, [response.body].flatten]
+      # end
 
     end
   end

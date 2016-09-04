@@ -15,8 +15,8 @@ class QuotesController < Rulers::Controller
   end
 
   def index
-    quotes = FileModel.find_all_by_submitter("Jesus")
-    render :index, :quotes => quotes
+    @quotes = FileModel.find_all_by_submitter("Jesus")
+    # render :index, :quotes => quotes
   end
 
   def new_quote

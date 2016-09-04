@@ -7,6 +7,23 @@ module Rulers
     include Rulers::Model
     def initialize(env)
       @env = env
+      @routing_params = {}
+    end
+
+    def dispatch(action, routing_params = {})
+      @routing_params = routing_params
+      text = self.send(action)
+      if get_response
+        status, headers, response = get_response.to_a
+        [status, headers, [response].flatten]
+      else
+        status, headers, response = self.render(action).to_a
+        [status, headers, [response.body].flatten]
+      end
+    end
+
+    def self.action(act, rp = {})
+      proc { |e| self.new(e).dispatch(act,rp)}
     end
 
     def request
@@ -14,7 +31,7 @@ module Rulers
     end
 
     def params
-      request.params
+      request.params.merge(@routing_params)
     end
 
     def env

@@ -43,6 +43,7 @@ class QuotesController < Rulers::Controller
   def show
     @quote = FileModel.find(params["id"])
     @ua = request.user_agent
-    # render_response :quote, :obj => quote, :ua => ua
+    redirect_to("/")
+    # render :show, :quote => @quote, :ua => @ua
   end
 end

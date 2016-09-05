@@ -15,7 +15,7 @@ module Rulers
       text = self.send(action)
       if get_response
         status, headers, response = get_response.to_a
-        [status, headers, [response].flatten]
+        [status, headers, [response.body].flatten]
       else
         status, headers, response = self.render(action).to_a
         [status, headers, [response.body].flatten]
@@ -68,6 +68,11 @@ module Rulers
 
     def render(*args)
       response(render_view(*args))
+    end
+
+    def redirect_to(url)
+      @response = Rack::Response.new("")
+      @response.redirect("/")
     end
 
   end

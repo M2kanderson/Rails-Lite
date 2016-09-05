@@ -5,14 +5,11 @@ app = BestQuotes::Application.new
 use Rack::ContentType
 
 app.route do
-  match "", "quotes#index"
+  root_to "quotes#index"
   match "sub-app", proc { [200, {}, ["Hello, sub-app!"]] }
-
   match ":controller/:id/:action"
   match ":controller/:id", :default => {"action" => "show"}
   match ":controller", :default => {"action" => "index"}
 end
-# map "/" do
-#   run QuotesController.action(:index)
-# end
+
 run app

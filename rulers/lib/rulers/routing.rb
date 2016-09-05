@@ -24,6 +24,11 @@ module Rulers
       @rules = []
     end
 
+    def root_to(target)
+      match("", target)
+    end
+
+
     def match(url, *args)
       options = {}
       options = args.pop if args[-1].is_a?(Hash)
@@ -58,10 +63,6 @@ module Rulers
 
     def check_url(url)
       @rules.each do |rule|
-        puts "rule"
-        puts rule[:regexp]
-        puts "url"
-        puts url
         match = rule[:regexp].match(url)
         if match
           options = rule[:options]
